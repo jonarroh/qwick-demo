@@ -1,5 +1,10 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { server$, type DocumentHead } from '@builder.io/qwik-city';
+import {
+	server$,
+	type DocumentHead,
+	useNavigate,
+	Link
+} from '@builder.io/qwik-city';
 
 export default component$(() => {
 	const contador = useSignal<number>(0);
@@ -10,6 +15,7 @@ export default component$(() => {
 		const data = await response.json();
 		return data.message;
 	});
+	const nav = useNavigate();
 
 	return (
 		<>
@@ -17,8 +23,15 @@ export default component$(() => {
 				class={
 					'flex flex-col items-center justify-center w-screen text-center'
 				}>
+				<a
+					class={'cursor-pointer'}
+					onClick$={async () => {
+						await nav('/post');
+					}}>
+					post
+				</a>
+				<Link href="/posts">post 2</Link>
 				<h1 class={'text-4xl font-bold'}>Todo App</h1>
-
 				<button
 					onClick$={() => {
 						if (contador.value > 0) {

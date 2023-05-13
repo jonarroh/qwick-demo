@@ -1,7 +1,14 @@
-import { component$, Slot, useStyles$ } from '@builder.io/qwik';
+import {
+	component$,
+	Slot,
+	useContextProvider,
+	useStore,
+	useStyles$
+} from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 
 import styles from './styles.css?inline';
+import { CTXContador } from '~/context/contador';
 
 export const useServerTimeLoader = routeLoader$(() => {
 	return {
@@ -10,6 +17,9 @@ export const useServerTimeLoader = routeLoader$(() => {
 });
 
 export default component$(() => {
+	const contadorData = useStore({ contador: 0 });
+
+	useContextProvider(CTXContador, contadorData);
 	useStyles$(styles);
 	return (
 		<>

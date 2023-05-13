@@ -16,6 +16,7 @@ export default component$(() => {
 
 	const connectToDB = server$(async () => {
 		const data = await prisma.post.findMany();
+		console.log(data);
 		return data;
 	});
 
